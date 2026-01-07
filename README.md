@@ -1,85 +1,70 @@
-# Northwind Sales Data Analysis 
+# Northwind Sales Analytics: Uncovering Customer Insights and Operational Efficiencies
 
-This project involves an in-depth analysis of the Northwind Traders sales data, focusing on customer behaviour, product performance, and shipping efficiency. The analysis was done using Python in a Jupyter Notebook and involves data cleaning, data transformation, and exploratory data analysis (EDA), with the aim  to uncover key insights about customer behaviour, product popularity, and shipping performance.
+This project provides an in-depth analysis of Northwind Traders' sales data, focusing on customer behavior, product performance, shipping efficiency, and seasonal trends. Using Python for data cleaning, transformation, and exploratory data analysis (EDA) in a Jupyter Notebook, and Power BI for interactive visualizations, the analysis uncovers actionable insights to drive business decisions.
 
----
+![Northwind Sales Dashboard](Northwind/northwww.png)  
+*(Screenshot of the Power BI dashboard highlighting key metrics like total revenue (1.53K), orders (830), and visualizations for trends, customer segments, and global sales.)*
 
-**Data Preprocessing**
+## Technologies Used
+- **Programming:** Python (Pandas for data manipulation, Seaborn/Matplotlib for visualizations)
+- **Tools:** Jupyter Notebook for EDA, Power BI for dashboard creation
+- **Data Handling:** CSV imports, date conversions, merging datasets
+- **Other:** Feature engineering (e.g., customer segmentation, days-to-ship calculation)
 
-Datasets Used:
-Orders: Information about orders placed, including dates, freight costs, and customer details.
-Customers: Details of customers, including their contact information and location.
-Products: Information about products, such as product names, categories, and prices.
- Order Details: Specifics about each order, including the products ordered, quantities, and discounts.
+## Data Preprocessing
+### Datasets Used
+- **Orders:** Details on orders, including dates, freight costs, and customer info.
+- **Customers:** Customer contact details, locations, and company info.
+- **Products:** Product names, categories, prices, and suppliers.
+- **Order Details:** Per-order specifics like products, quantities, and discounts.
 
-Key Preprocessing Steps:
-Date Conversion:
- The `orderDate`, `requiredDate`, and `shippedDate` columns were converted to   DateTime format to enable time-based analysis.
-  
- Handling Missing Values:
- The `shippedDate` column had missing values, which were filled using the `requiredDate` as a proxy, under the assumption that shipments were completed by the required date.
+### Key Preprocessing Steps
+1. **Project Setup:** Imported libraries (Pandas, Seaborn, Matplotlib).
+2. **Data Loading:** Loaded datasets with 'latin-1' encoding to handle special characters.
+3. **Initial Inspection:** Summarized data properties (info(), describe()), converted date columns to datetime, and handled missing values in `shippedDate` (filled with `requiredDate` as proxy).
+4. **Data Quality:** Identified/handled outliers (e.g., in Freight and UnitPrice), ensured ID consistency across datasets.
+5. **Merging & Feature Engineering:** 
+   - Merged all datasets into one for holistic analysis.
+   - Renamed columns for clarity.
+   - Created features: `total_order_value` (unitPrice * quantity * (1 - discount)), `days_to_ship` (shippedDate - orderDate).
+   - Segmented customers into Low, Medium, High based on total spend using quantiles.
 
-Merging Datasets:
- - The datasets were merged into a single comprehensive dataset, combining customer details, order information, and product data to enable a holistic analysis.
+## Exploratory Data Analysis (EDA)
+- **Customer Loyalty:** Top customers by order count (e.g., SAVEA with 31 orders).
+- **Product Popularity:** Top products by quantity sold (e.g., Camembert Pierrot at 1,577 units).
+- **Customer Segmentation:** Analyzed preferences by segment (e.g., High-spend prefers Camembert Pierrot).
+- **Shipping Analysis:** Average days to ship per product (e.g., Sir Rodney's Marmalade at ~17 days).
+- **Order Frequency:** Monthly trends showing peaks in late 2014/early 2015.
+- **Average Order Value:** Varied by segment (High: $750, Medium: $399, Low: $240).
 
-Data Transformation:
-Days to Ship: A new feature `days_to_ship` was calculated as the difference  between `orderDate` and `shippedDate`, representing the time taken to fulfill an order.
-Customer Segments:Customers were segmented into three categories—Low, Medium, and High—based on their total spend
+Results were exported to `northwind_analysis.csv` and `.xlsx` for sharing.
 
----
+## Power BI Visualization
+The dashboard visualizes key insights:
+- **Monthly Order Trend:** Line chart of orders from July 2013 to April 2015, showing seasonal peaks.
+- **Revenue Distribution by Customer Segment:** Pie chart (High segment: 76.07% of revenue).
+- **Best-Selling Products:** Bar chart of top items by sales volume.
+- **Highest-Frequency Customers:** Heatmap of loyal customers for targeted marketing.
+- **Global Sales Distribution:** Map showing active regions.
+- **Year-over-Year Sales Comparison:** Line chart comparing 2013–2015 trends.
 
-**Exploratory Data Analysis (EDA)**
+## Key Findings & Actionable Insights
+- **Focus on High-Value Customers:** The "High" segment drives most revenue—prioritize retention strategies.
+- **Optimize Inventory:** Stock best-sellers like Camembert Pierrot to meet demand.
+- **Improve Shipping:** Address delays in certain products to boost satisfaction and repeat business.
+- **Capitalize on Seasons:** Peaks at year-end suggest effective promotions during these periods.
 
-Revenue Analysis:
-- Revenue distribution was examined across the three customer segments. The analysis revealed that a significant portion of revenue is generated by the "High" segment, highlighting the importance of focusing on high-value customers.
+## How to Run
+1. Clone the repo: `git clone <repo-url>`.
+2. Install dependencies: `pip install pandas seaborn matplotlib`.
+3. Open the Jupyter Notebook: `Northwind/Northwind  Sales Data Analysis.ipynb`.
+4. For Power BI: Open the `Northwind/Northwind Insight Project.pbix` file 
 
-Order Frequency:
-- The monthly order trend was analyzed, showing fluctuations in order volumes over time. A notable increase in orders was observed towards the end of 2014 and the beginning of 2015, possibly indicating seasonal demand or successful marketing efforts.
-
-Best-Selling Products:
-- The top-selling products were identified, with items like “Camembert Pierrot” and “Raclette Courdavault” leading in sales. This insight can guide inventory management and marketing strategies.
-
-Shipping Analysis:
-- The average days to ship each product were calculated, revealing that some products take significantly longer to ship than others. 
-
-Customer Analysis:
-- The frequency of orders by customers was analyzed, identifying customers who frequently place orders. The average order value was examined across different customer segments, with "High" segment customers placing larger orders on average.
-
----
-
-**Visualization in Power BI**
-<img width="617" alt="Northwnd" src="https://github.com/user-attachments/assets/3125ffd6-8edb-4f4d-8e77-17d7739f5adc">
+## Future Improvements
+- Integrate SQL for data querying.
+- Add predictive modeling (e.g., forecast sales using time-series analysis).
+- Expand to real-time data integration.
 
 
-The Power BI dashboard visualizes key insights from the analysis:
 
-Monthly Order Trend:
-  - This line chart shows the number of orders placed each month from July 2013 to April 2015, highlighting peaks and troughs in sales activity.
-
-Revenue Distribution by Customer Segment:
- - A pie chart illustrates the proportion of revenue contributed by each customer segment, with the "High" segment(76.07%) dominating the revenue share.
-
-Best-Selling Products:
- - A bar chart lists the top products by sales volume, providing a quick overview of the most popular items.
-
-Highest-Frequency Customers:
- - A heatmap identifies the customers who place orders most frequently, allowing the company to target these loyal customers with personalized offers or rewards.
-
-Global Sales Distribution:
-- A map visualization shows the geographic distribution of sales, indicating regions where the company is most active.
-
-Year-over-Year Sales Comparison:
- - This line chart compares sales trends across 2013, 2014, and 2015, offering insights into seasonal trends and overall growth.
-
----
-
-This analysis of Northwind's sales data provides several actionable insights:
-
-- Focus on High-Value Customers,  the "High" revenue segment drives the majority of the company’s revenue. 
-  
-- Optimize Inventory for Best-Selling Products, ensuring adequate stock levels for items like “Camembert Pierrot”,  to meet customer demand.
-
-- Improve Shipping Times, by addressing delays in shipping for certain products can enhance customer satisfaction and retention, potentially leading to repeat business.
-
-- Capitalize on Seasonal Trends, The observed peaks in orders around the end of the year suggest that seasonal promotions or campaigns could be effective in boosting sales during these periods.
 
